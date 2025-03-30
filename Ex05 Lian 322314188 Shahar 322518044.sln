@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex05.GameLogic", "Ex05.GameLogic\Ex05.GameLogic.csproj", "{7196F51D-CCD1-495C-B797-198AFC1E6C67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex05.CheckersUi", "Ex05.CheckersUi\Ex05.CheckersUi.csproj", "{E0E2823B-30F0-46A0-A645-BE69963C9108}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7196F51D-CCD1-495C-B797-198AFC1E6C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7196F51D-CCD1-495C-B797-198AFC1E6C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7196F51D-CCD1-495C-B797-198AFC1E6C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7196F51D-CCD1-495C-B797-198AFC1E6C67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E2823B-30F0-46A0-A645-BE69963C9108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E2823B-30F0-46A0-A645-BE69963C9108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E2823B-30F0-46A0-A645-BE69963C9108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E2823B-30F0-46A0-A645-BE69963C9108}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88F7342A-56EF-48B6-ABCD-36F6ACCB221F}
+	EndGlobalSection
+EndGlobal
