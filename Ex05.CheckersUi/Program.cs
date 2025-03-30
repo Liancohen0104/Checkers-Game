@@ -1,4 +1,3 @@
-
 namespace Ex05.CheckersUi
 {
     public static class Program
