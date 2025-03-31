@@ -1,4 +1,4 @@
-﻿namespace Ex05.GameLogic
+﻿namespace GameLogic
 {
     public class Position
     {
@@ -7,19 +7,19 @@
 
         public Position(int i_BoardRow, int i_BoardCol)
         {
-            this.m_BoardRow = i_BoardRow;
-            this.m_BoardCol = i_BoardCol;
+            m_BoardRow = i_BoardRow;
+            m_BoardCol = i_BoardCol;
         }
 
         public int BoardRow
         {
             get
             {
-                return this.m_BoardRow;
+                return m_BoardRow;
             }
             set
             {
-                this.m_BoardRow = value;
+                m_BoardRow = value;
             }
         }
 
@@ -27,11 +27,11 @@
         {
             get
             {
-                return this.m_BoardCol;
+                return m_BoardCol;
             }
             set
             {
-                this.m_BoardCol = value;
+                m_BoardCol = value;
             }
         }
     }

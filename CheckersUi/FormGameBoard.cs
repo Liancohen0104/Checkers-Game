@@ -2,8 +2,9 @@
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Ex05.GameLogic;
-namespace Ex05.CheckersUi
+using GameLogic;
+
+namespace CheckersUi
 {
     public class FormCheckersGame : Form
     {
@@ -25,7 +26,7 @@ namespace Ex05.CheckersUi
             r_GameBoard = new GameBoard(i_GameBoard.BoardSize, i_GameBoard.FirstPlayer.PlayerName, i_GameBoard.SecondPlayer.PlayerName);
             initializeComponents();
         }
-        
+
         private void initializeComponents()
         {
             initializeWindowGameBoardComponents();
@@ -36,28 +37,28 @@ namespace Ex05.CheckersUi
 
         private void initializeWindowGameBoardComponents()
         {
-            this.Text = "Damka";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            Text = "Damka";
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
         }
 
         private void initializeLabels()
         {
-            int totalWidth = k_StartLeft + (r_GameBoard.BoardSize * k_ButtonSize) + 20;
-            int totalHeight = k_StartTop + (r_GameBoard.BoardSize * k_ButtonSize) + 20;
+            int totalWidth = k_StartLeft + r_GameBoard.BoardSize * k_ButtonSize + 20;
+            int totalHeight = k_StartTop + r_GameBoard.BoardSize * k_ButtonSize + 20;
             int totalLabelsWidth;
 
-            this.ClientSize = new Size(totalWidth, totalHeight);
+            ClientSize = new Size(totalWidth, totalHeight);
             m_LabelPlayer1 = new Label() { Text = $"{r_GameBoard.FirstPlayer.PlayerName}:", AutoSize = true, Font = new Font("Arial", 14, FontStyle.Bold) };
-            this.Controls.Add(m_LabelPlayer1);
+            Controls.Add(m_LabelPlayer1);
             m_LabelPlayer1Score = new Label() { Text = "0", AutoSize = true, Enabled = true, Font = new Font("Arial", 14, FontStyle.Bold) };
-            this.Controls.Add(m_LabelPlayer1Score);
+            Controls.Add(m_LabelPlayer1Score);
             m_LabelPlayer2 = new Label() { Text = $"{r_GameBoard.SecondPlayer.PlayerName}:", AutoSize = true, Font = new Font("Arial", 14, FontStyle.Bold) };
-            this.Controls.Add(m_LabelPlayer2);
+            Controls.Add(m_LabelPlayer2);
             m_LabelPlayer2Score = new Label() { Text = "0", AutoSize = true, Enabled = true, Font = new Font("Arial", 14, FontStyle.Bold) };
-            this.Controls.Add(m_LabelPlayer2Score);
+            Controls.Add(m_LabelPlayer2Score);
             totalLabelsWidth = m_LabelPlayer1.PreferredSize.Width + 5 +
                                m_LabelPlayer1Score.PreferredSize.Width + 50 +
                                m_LabelPlayer2.PreferredSize.Width + 5 +
@@ -70,20 +71,20 @@ namespace Ex05.CheckersUi
 
         private void buildBoard()
         {
-            int playerRows = r_GameBoard.BoardSize / 2 - 1; 
+            int playerRows = r_GameBoard.BoardSize / 2 - 1;
 
             for (int row = 0; row < r_GameBoard.BoardSize; ++row)
             {
                 for (int col = 0; col < r_GameBoard.BoardSize; ++col)
                 {
                     Button cellButton = new Button
-                                            {
-                                                Size = new Size(k_ButtonSize, k_ButtonSize),
-                                                Location = new Point(k_StartLeft + col * k_ButtonSize, k_StartTop + row * k_ButtonSize),
-                                                BackColor = (row + col) % 2 == 0 ? Color.DimGray : Color.White,
-                                                FlatStyle = FlatStyle.Flat,
-                                                Enabled = (row + col) % 2 != 0
-                                            };
+                    {
+                        Size = new Size(k_ButtonSize, k_ButtonSize),
+                        Location = new Point(k_StartLeft + col * k_ButtonSize, k_StartTop + row * k_ButtonSize),
+                        BackColor = (row + col) % 2 == 0 ? Color.DimGray : Color.White,
+                        FlatStyle = FlatStyle.Flat,
+                        Enabled = (row + col) % 2 != 0
+                    };
                     cellButton.FlatAppearance.BorderColor = Color.DarkGray;
                     cellButton.FlatAppearance.BorderSize = 3;
                     if (row < playerRows && cellButton.Enabled)
@@ -99,7 +100,7 @@ namespace Ex05.CheckersUi
                     cellButton.Tag = new Point(row, col);
                     cellButton.Click += cellButton_Click;
                     m_ButtonsBoard[row, col] = cellButton;
-                    this.Controls.Add(cellButton);
+                    Controls.Add(cellButton);
                 }
             }
         }
@@ -133,12 +134,12 @@ namespace Ex05.CheckersUi
                 else
                 {
                     m_ToButton = clickedButton;
-                    if(!r_GameBoard.LegalMoveValidation(
+                    if (!r_GameBoard.LegalMoveValidation(
                            ((Point)m_FromButton.Tag).X,
                            ((Point)m_FromButton.Tag).Y,
                            ((Point)m_ToButton.Tag).X,
                            ((Point)m_ToButton.Tag).Y,
-                           v_IsComeFromUi)) 
+                           v_IsComeFromUi))
                     {
                         showErrorMessage();
                     }
@@ -150,7 +151,7 @@ namespace Ex05.CheckersUi
                             doComputerMoveIfNeeded();
                         }
 
-                        if(r_GameBoard.GameMode != eGameState.Ongoing)
+                        if (r_GameBoard.GameMode != eGameState.Ongoing)
                         {
                             showEndGameMessageBox();
                         }
@@ -209,9 +210,9 @@ namespace Ex05.CheckersUi
 
         private void doComputerMoveIfNeeded()
         {
-            if(!r_GameBoard.IsCurrentPlayerIsFirstPlayer() && r_GameBoard.SecondPlayer.PlayerType == ePlayerType.Computer )
+            if (!r_GameBoard.IsCurrentPlayerIsFirstPlayer() && r_GameBoard.SecondPlayer.PlayerType == ePlayerType.Computer)
             {
-                if(m_ComputerTimer == null)
+                if (m_ComputerTimer == null)
                 {
                     m_ComputerTimer = new Timer();
                     m_ComputerTimer.Interval = 1000;
@@ -224,8 +225,8 @@ namespace Ex05.CheckersUi
 
         private void m_ComputerTimer_Tick(object sender, EventArgs e)
         {
-            if(r_GameBoard.GameMode != eGameState.Ongoing ||
-               !(!r_GameBoard.IsCurrentPlayerIsFirstPlayer() && r_GameBoard.SecondPlayer.PlayerType == ePlayerType.Computer)) 
+            if (r_GameBoard.GameMode != eGameState.Ongoing ||
+               !(!r_GameBoard.IsCurrentPlayerIsFirstPlayer() && r_GameBoard.SecondPlayer.PlayerType == ePlayerType.Computer))
             {
                 m_ComputerTimer.Stop();
             }
@@ -233,13 +234,13 @@ namespace Ex05.CheckersUi
             {
                 r_GameBoard.MakeComputerMove();
                 updateBoardUi();
-                if(r_GameBoard.GameMode != eGameState.Ongoing)
+                if (r_GameBoard.GameMode != eGameState.Ongoing)
                 {
                     m_ComputerTimer.Stop();
                     showEndGameMessageBox();
 
                 }
-                else if( r_GameBoard.IsCurrentPlayerIsFirstPlayer())
+                else if (r_GameBoard.IsCurrentPlayerIsFirstPlayer())
                 {
                     m_ComputerTimer.Stop();
                 }
@@ -280,7 +281,7 @@ namespace Ex05.CheckersUi
                 }
             }
         }
-        
+
         private void showErrorMessage()
         {
             string errorMessage = null;

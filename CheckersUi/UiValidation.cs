@@ -1,5 +1,6 @@
 ﻿using System.Text;
-namespace Ex05.CheckersUi
+
+namespace CheckersUi
 {
     public class UiValidation
     {

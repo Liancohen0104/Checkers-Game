@@ -1,7 +1,8 @@
-﻿using Ex05.GameLogic;
+﻿using GameLogic;
 using System.Text;
 using System.Windows.Forms;
-namespace Ex05.CheckersUi
+
+namespace CheckersUi
 {
     public class FormsUi
     {

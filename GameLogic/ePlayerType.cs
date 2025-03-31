@@ -1,4 +1,4 @@
-﻿namespace Ex05.GameLogic
+﻿namespace GameLogic
 {
     public enum ePlayerType
     {

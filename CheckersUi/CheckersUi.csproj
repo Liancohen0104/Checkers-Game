@@ -61,12 +61,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ex05.GameLogic\Ex05.GameLogic.csproj">
-      <Project>{7196f51d-ccd1-495c-b797-198afc1e6c67}</Project>
-      <Name>Ex05.GameLogic</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
@@ -83,8 +77,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="Ex02.ConsoleUtils">
-      <HintPath>C:\Users\talta\Dropbox\HIT\Ex02\Ex02.ConsoleUtils.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\GameLogic\GameLogic.csproj">
+      <Project>{7196f51d-ccd1-495c-b797-198afc1e6c67}</Project>
+      <Name>GameLogic</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

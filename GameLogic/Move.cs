@@ -1,4 +1,4 @@
-﻿namespace Ex05.GameLogic
+﻿namespace GameLogic
 {
     public class Move
     {
@@ -7,15 +7,15 @@
 
         public Move(Position i_CurrentPosition, Position i_NextPosition)
         {
-            this.r_CurrentPosition = i_CurrentPosition;
-            this.r_NextPosition = i_NextPosition;
+            r_CurrentPosition = i_CurrentPosition;
+            r_NextPosition = i_NextPosition;
         }
 
         public Position CurrentPosition
         {
             get
             {
-                return this.r_CurrentPosition;
+                return r_CurrentPosition;
             }
         }
 
@@ -23,7 +23,7 @@
         {
             get
             {
-                return this.r_NextPosition;
+                return r_NextPosition;
             }
         }
 

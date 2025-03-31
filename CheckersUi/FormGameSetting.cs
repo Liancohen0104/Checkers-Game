@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-namespace Ex05.CheckersUi
+
+namespace CheckersUi
 {
     public class FormGameSetting : Form
     {
@@ -27,7 +28,7 @@ namespace Ex05.CheckersUi
         {
             get
             {
-                return this.m_CloseByDone;
+                return m_CloseByDone;
             }
         }
 
@@ -35,7 +36,7 @@ namespace Ex05.CheckersUi
         {
             get
             {
-                return this.m_TextBoxPlayer1Name.Text;
+                return m_TextBoxPlayer1Name.Text;
             }
         }
 
@@ -59,33 +60,33 @@ namespace Ex05.CheckersUi
         {
             initializeWindowGameSettingComponents();
             m_LabelBoardSize = new Label() { Text = "Board Size:", Location = new Point(20, 20), AutoSize = true };
-            m_RadioButtonSmallSize = new RadioButton() { Text = "6x6", AutoSize = true, Location = new Point(m_LabelBoardSize.Left + 20, m_LabelBoardSize.Bottom + 5), Checked = true};
-            m_RadioButtonMediumSize = new RadioButton() { Text = "8x8", AutoSize = true, Location = new Point(m_RadioButtonSmallSize.Left + 60, m_RadioButtonSmallSize.Top)};
-            m_RadioButtonLargeSize = new RadioButton() { Text = "10x10", AutoSize = true, Location = new Point(m_RadioButtonMediumSize.Left + 60, m_RadioButtonMediumSize.Top)};
+            m_RadioButtonSmallSize = new RadioButton() { Text = "6x6", AutoSize = true, Location = new Point(m_LabelBoardSize.Left + 20, m_LabelBoardSize.Bottom + 5), Checked = true };
+            m_RadioButtonMediumSize = new RadioButton() { Text = "8x8", AutoSize = true, Location = new Point(m_RadioButtonSmallSize.Left + 60, m_RadioButtonSmallSize.Top) };
+            m_RadioButtonLargeSize = new RadioButton() { Text = "10x10", AutoSize = true, Location = new Point(m_RadioButtonMediumSize.Left + 60, m_RadioButtonMediumSize.Top) };
             m_LabelPlayers = new Label() { Text = "Players:", AutoSize = true, Location = new Point(m_LabelBoardSize.Left, m_RadioButtonSmallSize.Bottom + 5) };
-            m_LabelPlayer1 = new Label() { Text = "Player 1:", AutoSize = true, Location = new Point(m_LabelPlayers.Left + 10, m_LabelPlayers.Bottom + 5)};
+            m_LabelPlayer1 = new Label() { Text = "Player 1:", AutoSize = true, Location = new Point(m_LabelPlayers.Left + 10, m_LabelPlayers.Bottom + 5) };
             m_TextBoxPlayer1Name = new TextBox() { Width = 100, Location = new Point(m_LabelPlayer1.Right + 5, m_LabelPlayer1.Top - 3), AutoSize = true };
-            m_CheckBoxPlayer2 = new CheckBox() { Location = new Point(m_LabelPlayer1.Left, m_LabelPlayer1.Bottom + 5), AutoSize = true};
+            m_CheckBoxPlayer2 = new CheckBox() { Location = new Point(m_LabelPlayer1.Left, m_LabelPlayer1.Bottom + 5), AutoSize = true };
             m_CheckBoxPlayer2.CheckedChanged += new EventHandler(m_CheckBoxPlayer2_CheckedChanged);
             m_LabelPlayer2 = new Label() { Text = "Player 2:", AutoSize = true, Location = new Point(m_CheckBoxPlayer2.Left + 20, m_CheckBoxPlayer2.Top) };
             m_TextBoxPlayer2Name = new TextBox() { Width = 100, Location = new Point(m_TextBoxPlayer1Name.Left, m_LabelPlayer2.Top - 3), Text = "[Computer]", Enabled = false, AutoSize = true };
-            m_ButtonDone = new Button() { Text = "Done", Size = new Size(75, 25), Location = new Point(m_TextBoxPlayer2Name.Left + 25, m_TextBoxPlayer2Name.Bottom + 20)};
+            m_ButtonDone = new Button() { Text = "Done", Size = new Size(75, 25), Location = new Point(m_TextBoxPlayer2Name.Left + 25, m_TextBoxPlayer2Name.Bottom + 20) };
             m_ButtonDone.Click += m_ButtonDone_Click;
             addComponentsToControls();
         }
 
         private void initializeWindowGameSettingComponents()
         {
-            this.Text = "Game Settings";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            this.ClientSize = new Size(250, 210);
-            this.ShowInTaskbar = false;
+            Text = "Game Settings";
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            ClientSize = new Size(250, 210);
+            ShowInTaskbar = false;
         }
 
         private void addComponentsToControls()
         {
-            this.Controls.AddRange(new Control[] {
+            Controls.AddRange(new Control[] {
                                                          m_LabelBoardSize,
                                                          m_RadioButtonSmallSize,
                                                          m_RadioButtonMediumSize,
@@ -101,9 +102,9 @@ namespace Ex05.CheckersUi
         }
 
         private void m_ButtonDone_Click(object sender, EventArgs e)
-        { 
+        {
             m_CloseByDone = true;
-            this.Close();
+            Close();
         }
 
         // $G$ NTT-999 (-3) You should have used string.Empty instead of "".
@@ -114,7 +115,7 @@ namespace Ex05.CheckersUi
             if (player2CheckBox.Checked)
             {
                 m_TextBoxPlayer2Name.Enabled = true;
-                m_TextBoxPlayer2Name.Text = ""; 
+                m_TextBoxPlayer2Name.Text = "";
             }
             else
             {

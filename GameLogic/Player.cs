@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-namespace Ex05.GameLogic
+
+namespace GameLogic
 {
     public class Player
     {
@@ -15,25 +16,25 @@ namespace Ex05.GameLogic
 
         public Player(string i_PlayerName, ePlayerType i_PlayerType, ePlayerSymbol i_PlayerSymbol)
         {
-            this.r_PlayerName = i_PlayerName;
-            this.r_PlayerType = i_PlayerType;
-            this.m_PlayerSymbol = i_PlayerSymbol;
-            this.m_PlayerPiecesList = new List<Piece>();
-            this.m_PossibleCaptureMoves = new List<Move>();
-            this.m_PossibleMoves = new List<Move>();
-            this.m_KingsCount = 0;
-            this.m_PlayerScore = 0;
+            r_PlayerName = i_PlayerName;
+            r_PlayerType = i_PlayerType;
+            m_PlayerSymbol = i_PlayerSymbol;
+            m_PlayerPiecesList = new List<Piece>();
+            m_PossibleCaptureMoves = new List<Move>();
+            m_PossibleMoves = new List<Move>();
+            m_KingsCount = 0;
+            m_PlayerScore = 0;
         }
 
         public int PlayerScore
         {
             get
             {
-                return this.m_PlayerScore;
+                return m_PlayerScore;
             }
             set
             {
-                this.m_PlayerScore = value;
+                m_PlayerScore = value;
             }
         }
 
@@ -41,11 +42,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_KingsCount;
+                return m_KingsCount;
             }
             set
             {
-                this.m_KingsCount = value;
+                m_KingsCount = value;
             }
         }
 
@@ -53,7 +54,7 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.r_PlayerName;
+                return r_PlayerName;
             }
         }
 
@@ -61,7 +62,7 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.r_PlayerType;
+                return r_PlayerType;
             }
         }
 
@@ -69,11 +70,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_PlayerSymbol;
+                return m_PlayerSymbol;
             }
             set
             {
-                this.m_PlayerSymbol = value;
+                m_PlayerSymbol = value;
             }
         }
 
@@ -93,11 +94,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_PossibleCaptureMoves;
+                return m_PossibleCaptureMoves;
             }
             set
             {
-                this.m_PossibleCaptureMoves = value;
+                m_PossibleCaptureMoves = value;
             }
         }
 
@@ -105,11 +106,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_PossibleMoves;
+                return m_PossibleMoves;
             }
             set
             {
-                this.m_PossibleMoves = value;
+                m_PossibleMoves = value;
             }
         }
 
@@ -123,7 +124,7 @@ namespace Ex05.GameLogic
                 isValidNames = false;
             }
 
-            if ((string.IsNullOrWhiteSpace(i_Player2Name)) || i_Player2Name.Length > 10)
+            if (string.IsNullOrWhiteSpace(i_Player2Name) || i_Player2Name.Length > 10)
             {
                 o_InputError.AppendLine("Please enter player 2 name (less than 10 letters)");
                 isValidNames = false;

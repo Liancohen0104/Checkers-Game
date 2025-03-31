@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-namespace Ex05.GameLogic
+
+namespace GameLogic
 {
     public class GameBoard
     {
@@ -17,26 +18,26 @@ namespace Ex05.GameLogic
 
         public GameBoard(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName)
         {
-            this.r_BoardSize = i_BoardSize;
-            this.r_FirstPlayer = new Player(i_FirstPlayerName, ePlayerType.Player1, ePlayerSymbol.X);
+            r_BoardSize = i_BoardSize;
+            r_FirstPlayer = new Player(i_FirstPlayerName, ePlayerType.Player1, ePlayerSymbol.X);
             ePlayerType player2Type =
                 i_SecondPlayerName.ToLower() == "computer" ? ePlayerType.Computer : ePlayerType.Player2;
-            this.r_SecondPlayer = new Player(i_SecondPlayerName, player2Type, ePlayerSymbol.O);
+            r_SecondPlayer = new Player(i_SecondPlayerName, player2Type, ePlayerSymbol.O);
             InitializeBoard();
-            this.m_GameMode = eGameState.Ongoing;
-            this.m_IsPlayerRetire = false;
-            this.m_CurrentPlayerTurn = r_FirstPlayer;
+            m_GameMode = eGameState.Ongoing;
+            m_IsPlayerRetire = false;
+            m_CurrentPlayerTurn = r_FirstPlayer;
         }
 
         public bool IsPlayerRetire
         {
             get
             {
-                return this.m_IsPlayerRetire;
+                return m_IsPlayerRetire;
             }
             set
             {
-                this.m_IsPlayerRetire = value;
+                m_IsPlayerRetire = value;
             }
         }
 
@@ -44,7 +45,7 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.r_BoardSize;
+                return r_BoardSize;
             }
         }
 
@@ -52,11 +53,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_Board;
+                return m_Board;
             }
             set
             {
-                this.m_Board = value;
+                m_Board = value;
             }
         }
 
@@ -64,7 +65,7 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.r_FirstPlayer;
+                return r_FirstPlayer;
             }
         }
 
@@ -72,7 +73,7 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.r_SecondPlayer;
+                return r_SecondPlayer;
             }
         }
 
@@ -80,11 +81,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_CurrentPlayerTurn;
+                return m_CurrentPlayerTurn;
             }
             set
             {
-                this.m_CurrentPlayerTurn = value;
+                m_CurrentPlayerTurn = value;
             }
         }
 
@@ -92,11 +93,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_GameMode;
+                return m_GameMode;
             }
             set
             {
-                this.m_GameMode = value;
+                m_GameMode = value;
             }
         }
 
@@ -104,11 +105,11 @@ namespace Ex05.GameLogic
         {
             get
             {
-                return this.m_ErrorMessage;
+                return m_ErrorMessage;
             }
             set
             {
-                this.m_ErrorMessage = value;
+                m_ErrorMessage = value;
             }
         }
 
@@ -117,11 +118,11 @@ namespace Ex05.GameLogic
             int rowsPerPlayer = r_BoardSize / 2 - 1;
 
             m_Board = new Piece[r_BoardSize, r_BoardSize];
-            for(int row = 0; row < rowsPerPlayer; ++row)
+            for (int row = 0; row < rowsPerPlayer; ++row)
             {
-                for(int col = 0; col < r_BoardSize; ++col)
+                for (int col = 0; col < r_BoardSize; ++col)
                 {
-                    if((row + col) % 2 != 0)
+                    if ((row + col) % 2 != 0)
                     {
                         Piece piece = new Piece(ePlayerType.Player2, ePlayerSymbol.O, new Position(row, col));
                         m_Board[row, col] = piece;
@@ -130,11 +131,11 @@ namespace Ex05.GameLogic
                 }
             }
 
-            for(int row = r_BoardSize - rowsPerPlayer; row < r_BoardSize; ++row)
+            for (int row = r_BoardSize - rowsPerPlayer; row < r_BoardSize; ++row)
             {
-                for(int col = 0; col < r_BoardSize; ++col)
+                for (int col = 0; col < r_BoardSize; ++col)
                 {
-                    if((row + col) % 2 != 0)
+                    if ((row + col) % 2 != 0)
                     {
                         Piece piece = new Piece(ePlayerType.Player1, ePlayerSymbol.X, new Position(row, col));
                         m_Board[row, col] = piece;
@@ -156,14 +157,14 @@ namespace Ex05.GameLogic
 
             setPieceInBoard(i_NextPosition, currentPiece);
             setPieceInBoard(i_CurrentPosition, null);
-            if(i_CapturePiece != null)
+            if (i_CapturePiece != null)
             {
                 setPieceInBoard(
                     new Position(i_CapturePiece.PiecePosition.BoardRow, i_CapturePiece.PiecePosition.BoardCol),
                     null);
-                if(IsCurrentPlayerIsFirstPlayer())
+                if (IsCurrentPlayerIsFirstPlayer())
                 {
-                    if(i_CapturePiece.PieceSymbol == ePlayerSymbol.U)
+                    if (i_CapturePiece.PieceSymbol == ePlayerSymbol.U)
                     {
                         --r_SecondPlayer.KingsCount;
                     }
@@ -172,7 +173,7 @@ namespace Ex05.GameLogic
                 }
                 else
                 {
-                    if(i_CapturePiece.PieceSymbol == ePlayerSymbol.K)
+                    if (i_CapturePiece.PieceSymbol == ePlayerSymbol.K)
                     {
                         --r_FirstPlayer.KingsCount;
                     }
@@ -184,7 +185,7 @@ namespace Ex05.GameLogic
                 additionalCaptures = findCaptureMovesForPiece(currentPiece);
             }
 
-            if(additionalCaptures.Count > 0)
+            if (additionalCaptures.Count > 0)
             {
                 i_CurrentPlayer.PossibleCaptureMoves.Clear();
                 i_CurrentPlayer.PossibleCaptureMoves.AddRange(additionalCaptures);
@@ -192,7 +193,7 @@ namespace Ex05.GameLogic
 
             }
 
-            if(!isHaveAdditionalCapture)
+            if (!isHaveAdditionalCapture)
             {
                 checkAndPromoteToKing(currentPiece, i_CurrentPlayer);
                 updatePossibleCaptureMovesList(r_FirstPlayer);
@@ -206,7 +207,7 @@ namespace Ex05.GameLogic
         {
             Piece nextPiece = null;
 
-            if(isWithinBounds(i_NextPosition))
+            if (isWithinBounds(i_NextPosition))
             {
                 nextPiece = m_Board[i_NextPosition.BoardRow, i_NextPosition.BoardCol];
             }
@@ -217,7 +218,7 @@ namespace Ex05.GameLogic
         private void setPieceInBoard(Position i_UpdatePosition, Piece i_UpdatePiece)
         {
             m_Board[i_UpdatePosition.BoardRow, i_UpdatePosition.BoardCol] = i_UpdatePiece;
-            if(i_UpdatePiece != null)
+            if (i_UpdatePiece != null)
             {
                 i_UpdatePiece.PiecePosition = i_UpdatePosition;
             }
@@ -228,14 +229,14 @@ namespace Ex05.GameLogic
             List<Move> captureMoves = new List<Move>();
             int[][] directions;
 
-            if(i_CurrentPiece.PieceSymbol == ePlayerSymbol.K || i_CurrentPiece.PieceSymbol == ePlayerSymbol.U)
+            if (i_CurrentPiece.PieceSymbol == ePlayerSymbol.K || i_CurrentPiece.PieceSymbol == ePlayerSymbol.U)
             {
                 directions = new int[][]
                                  {
                                      new int[] { -2, -2 }, new int[] { -2, 2 }, new int[] { 2, -2 }, new int[] { 2, 2 }
                                  };
             }
-            else if(i_CurrentPiece.PieceOwner == ePlayerType.Player1)
+            else if (i_CurrentPiece.PieceOwner == ePlayerType.Player1)
             {
                 directions = new int[][] { new int[] { -2, -2 }, new int[] { -2, 2 } };
             }
@@ -244,25 +245,25 @@ namespace Ex05.GameLogic
                 directions = new int[][] { new int[] { 2, -2 }, new int[] { 2, 2 } };
             }
 
-            foreach(int[] direction in directions)
+            foreach (int[] direction in directions)
             {
                 int targetRow = i_CurrentPiece.PiecePosition.BoardRow + direction[0];
                 int targetCol = i_CurrentPiece.PiecePosition.BoardCol + direction[1];
                 int middleRow = i_CurrentPiece.PiecePosition.BoardRow + direction[0] / 2;
                 int middleCol = i_CurrentPiece.PiecePosition.BoardCol + direction[1] / 2;
 
-                if(targetRow < 0 || targetRow >= r_BoardSize || targetCol < 0 || targetCol >= r_BoardSize)
+                if (targetRow < 0 || targetRow >= r_BoardSize || targetCol < 0 || targetCol >= r_BoardSize)
                 {
                     continue;
                 }
 
-                if(GetPiece(new Position(targetRow, targetCol)) != null)
+                if (GetPiece(new Position(targetRow, targetCol)) != null)
                 {
                     continue;
                 }
 
                 Piece middlePiece = GetPiece(new Position(middleRow, middleCol));
-                if(middlePiece == null || middlePiece.PieceOwner == i_CurrentPiece.PieceOwner)
+                if (middlePiece == null || middlePiece.PieceOwner == i_CurrentPiece.PieceOwner)
                 {
                     continue;
                 }
@@ -279,7 +280,7 @@ namespace Ex05.GameLogic
         private void updatePossibleCaptureMovesList(Player i_PlayerToUpdate)
         {
             i_PlayerToUpdate.PossibleCaptureMoves.Clear();
-            foreach(Piece pieceItem in i_PlayerToUpdate.PlayerPiecesList)
+            foreach (Piece pieceItem in i_PlayerToUpdate.PlayerPiecesList)
             {
                 List<Move> captureMovesForPiece = findCaptureMovesForPiece(pieceItem);
                 i_PlayerToUpdate.PossibleCaptureMoves.AddRange(captureMovesForPiece);
@@ -303,7 +304,7 @@ namespace Ex05.GameLogic
             Piece currentPiece = null;
             Piece capturePiece = null;
 
-            if(IsCurrentPlayerIsFirstPlayer())
+            if (IsCurrentPlayerIsFirstPlayer())
             {
                 playerDirection = -1;
             }
@@ -312,9 +313,9 @@ namespace Ex05.GameLogic
                 playerDirection = 1;
             }
 
-            foreach(Piece pieceItem in m_CurrentPlayerTurn.PlayerPiecesList)
+            foreach (Piece pieceItem in m_CurrentPlayerTurn.PlayerPiecesList)
             {
-                if(checkIfPositionsEqual(pieceItem.PiecePosition, currentPosition))
+                if (checkIfPositionsEqual(pieceItem.PiecePosition, currentPosition))
                 {
                     currentPiece = pieceItem;
                     isFlag = true;
@@ -322,50 +323,50 @@ namespace Ex05.GameLogic
                 }
             }
 
-            if(!isFlag)
+            if (!isFlag)
             {
                 isValidMove = false;
                 m_ErrorMessage = eErrorMessage.NoGamePieceInSourceException;
             }
-            else if(!isWithinBounds(nextPosition))
+            else if (!isWithinBounds(nextPosition))
             {
                 isValidMove = false;
                 m_ErrorMessage = eErrorMessage.OutOfBoundsException;
             }
-            else if(GetPiece(nextPosition) != null)
+            else if (GetPiece(nextPosition) != null)
             {
                 isValidMove = false;
                 m_ErrorMessage = eErrorMessage.TargetCellOccupiedException;
             }
-            else if(Math.Abs(moveRowDifference) == 1 && Math.Abs(moveColDifference) == 1)
+            else if (Math.Abs(moveRowDifference) == 1 && Math.Abs(moveColDifference) == 1)
             {
-                if(m_CurrentPlayerTurn.PossibleCaptureMoves.Count > 0 && i_IsComeFromUi)
+                if (m_CurrentPlayerTurn.PossibleCaptureMoves.Count > 0 && i_IsComeFromUi)
                 {
                     isValidMove = false;
                     m_ErrorMessage = eErrorMessage.MandatoryCaptureMoveException;
                 }
-                else if(currentPiece.PieceSymbol != ePlayerSymbol.K && currentPiece.PieceSymbol != ePlayerSymbol.U)
+                else if (currentPiece.PieceSymbol != ePlayerSymbol.K && currentPiece.PieceSymbol != ePlayerSymbol.U)
                 {
-                    if(moveRowDifference != playerDirection)
+                    if (moveRowDifference != playerDirection)
                     {
                         isValidMove = false;
                         m_ErrorMessage = eErrorMessage.InvalidDirectionException;
                     }
                 }
             }
-            else if(Math.Abs(moveRowDifference) == 2 && Math.Abs(moveColDifference) == 2)
+            else if (Math.Abs(moveRowDifference) == 2 && Math.Abs(moveColDifference) == 2)
             {
                 isFlag = false;
-                foreach(Move moveItem in m_CurrentPlayerTurn.PossibleCaptureMoves)
+                foreach (Move moveItem in m_CurrentPlayerTurn.PossibleCaptureMoves)
                 {
-                    if(checkIfPositionsEqual(moveItem.NextPosition, nextPosition)
+                    if (checkIfPositionsEqual(moveItem.NextPosition, nextPosition)
                        && checkIfPositionsEqual(moveItem.CurrentPosition, currentPosition))
                     {
                         isFlag = true;
                     }
                 }
 
-                if(!isFlag)
+                if (!isFlag)
                 {
                     isValidMove = false;
                     m_ErrorMessage = eErrorMessage.MandatoryAdditionalCaptureException;
@@ -375,14 +376,14 @@ namespace Ex05.GameLogic
                 int captureCol = (currentPosition.BoardCol + nextPosition.BoardCol) / 2;
 
                 capturePiece = GetPiece(new Position(captureRow, captureCol));
-                if(capturePiece == null || capturePiece.PieceOwner == m_CurrentPlayerTurn.PlayerType)
+                if (capturePiece == null || capturePiece.PieceOwner == m_CurrentPlayerTurn.PlayerType)
                 {
                     isValidMove = false;
                     m_ErrorMessage = eErrorMessage.NoOpponentPieceToCaptureException;
                 }
-                else if(currentPiece.PieceSymbol != ePlayerSymbol.K && currentPiece.PieceSymbol != ePlayerSymbol.U)
+                else if (currentPiece.PieceSymbol != ePlayerSymbol.K && currentPiece.PieceSymbol != ePlayerSymbol.U)
                 {
-                    if(moveRowDifference != playerDirection * 2)
+                    if (moveRowDifference != playerDirection * 2)
                     {
                         isValidMove = false;
                         m_ErrorMessage = eErrorMessage.InvalidDirectionException;
@@ -395,7 +396,7 @@ namespace Ex05.GameLogic
                 m_ErrorMessage = eErrorMessage.IllegalTargetCellException;
             }
 
-            if(isValidMove && i_IsComeFromUi)
+            if (isValidMove && i_IsComeFromUi)
             {
                 MakeMove(currentPosition, nextPosition, m_CurrentPlayerTurn, capturePiece);
             }
@@ -411,11 +412,11 @@ namespace Ex05.GameLogic
 
         private void checkAndPromoteToKing(Piece i_CurrentPiece, Player i_CurrentPlayer)
         {
-            if(i_CurrentPiece.PieceSymbol != ePlayerSymbol.K && i_CurrentPiece.PieceSymbol != ePlayerSymbol.U)
+            if (i_CurrentPiece.PieceSymbol != ePlayerSymbol.K && i_CurrentPiece.PieceSymbol != ePlayerSymbol.U)
             {
-                if(i_CurrentPlayer.PlayerType == ePlayerType.Player1)
+                if (i_CurrentPlayer.PlayerType == ePlayerType.Player1)
                 {
-                    if(i_CurrentPiece.PiecePosition.BoardRow == 0)
+                    if (i_CurrentPiece.PiecePosition.BoardRow == 0)
                     {
                         i_CurrentPiece.PieceSymbol = ePlayerSymbol.K;
                         ++i_CurrentPlayer.KingsCount;
@@ -423,7 +424,7 @@ namespace Ex05.GameLogic
                 }
                 else
                 {
-                    if(i_CurrentPiece.PiecePosition.BoardRow == r_BoardSize - 1)
+                    if (i_CurrentPiece.PiecePosition.BoardRow == r_BoardSize - 1)
                     {
                         i_CurrentPiece.PieceSymbol = ePlayerSymbol.U;
                         ++i_CurrentPlayer.KingsCount;
@@ -438,7 +439,7 @@ namespace Ex05.GameLogic
             bool nextPlayerHasMoves = false;
             Player nextPlayer;
 
-            if(IsCurrentPlayerIsFirstPlayer())
+            if (IsCurrentPlayerIsFirstPlayer())
             {
                 nextPlayer = r_SecondPlayer;
             }
@@ -447,9 +448,9 @@ namespace Ex05.GameLogic
                 nextPlayer = r_FirstPlayer;
             }
 
-            if(m_IsPlayerRetire)
+            if (m_IsPlayerRetire)
             {
-                if(IsCurrentPlayerIsFirstPlayer())
+                if (IsCurrentPlayerIsFirstPlayer())
                 {
                     m_GameMode = eGameState.Player2Win;
                     updatePlayerScore(nextPlayer, m_CurrentPlayerTurn);
@@ -466,13 +467,13 @@ namespace Ex05.GameLogic
                 updatePossibleMovesForPlayerList(r_SecondPlayer);
                 currentPlayerHasMoves = m_CurrentPlayerTurn.PossibleMoves.Count > 0;
                 nextPlayerHasMoves = nextPlayer.PossibleMoves.Count > 0;
-                if(!currentPlayerHasMoves && !nextPlayerHasMoves)
+                if (!currentPlayerHasMoves && !nextPlayerHasMoves)
                 {
                     m_GameMode = eGameState.Draw;
                 }
-                else if(!nextPlayerHasMoves)
+                else if (!nextPlayerHasMoves)
                 {
-                    if(IsCurrentPlayerIsFirstPlayer())
+                    if (IsCurrentPlayerIsFirstPlayer())
                     {
                         m_GameMode = eGameState.Player1Win;
                         updatePlayerScore(m_CurrentPlayerTurn, nextPlayer);
@@ -489,7 +490,7 @@ namespace Ex05.GameLogic
         private void updatePlayerScore(Player i_WinningPlayer, Player i_LoosingPlayer)
         {
             int calcScore = Math.Abs(
-                (i_WinningPlayer.PlayerPiecesList.Count + 3 * i_WinningPlayer.KingsCount)
+                i_WinningPlayer.PlayerPiecesList.Count + 3 * i_WinningPlayer.KingsCount
                 - (i_LoosingPlayer.PlayerPiecesList.Count + 3 * i_LoosingPlayer.KingsCount));
 
             i_WinningPlayer.PlayerScore += calcScore;
@@ -499,19 +500,19 @@ namespace Ex05.GameLogic
         {
             bool isNeededToSwitchTurn = i_UpdatePlayer != m_CurrentPlayerTurn;
 
-            if(isNeededToSwitchTurn)
+            if (isNeededToSwitchTurn)
             {
                 switchTurn();
             }
 
             i_UpdatePlayer.PossibleMoves.Clear();
-            foreach(Piece pieceItem in i_UpdatePlayer.PlayerPiecesList)
+            foreach (Piece pieceItem in i_UpdatePlayer.PlayerPiecesList)
             {
                 List<Move> pieceMovesList = findAllMovesForPiece(pieceItem);
                 i_UpdatePlayer.PossibleMoves.AddRange(pieceMovesList);
             }
 
-            if(isNeededToSwitchTurn)
+            if (isNeededToSwitchTurn)
             {
                 switchTurn();
             }
@@ -527,7 +528,7 @@ namespace Ex05.GameLogic
             int[][] directions;
             List<Move> allMoves = new List<Move>();
 
-            if(i_CurrentPiece.PieceSymbol == ePlayerSymbol.K || i_CurrentPiece.PieceSymbol == ePlayerSymbol.U)
+            if (i_CurrentPiece.PieceSymbol == ePlayerSymbol.K || i_CurrentPiece.PieceSymbol == ePlayerSymbol.U)
             {
                 directions = new int[][]
                                  {
@@ -535,7 +536,7 @@ namespace Ex05.GameLogic
                                      new int[] { -2, -2 }, new int[] { -2, 2 }, new int[] { 2, -2 }, new int[] { 2, 2 }
                                  };
             }
-            else if(i_CurrentPiece.PieceOwner == ePlayerType.Player1)
+            else if (i_CurrentPiece.PieceOwner == ePlayerType.Player1)
             {
                 directions = new int[][]
                                  {
@@ -551,12 +552,12 @@ namespace Ex05.GameLogic
                                  };
             }
 
-            foreach(int[] direction in directions)
+            foreach (int[] direction in directions)
             {
                 targetRow = i_CurrentPiece.PiecePosition.BoardRow + direction[0];
                 targetCol = i_CurrentPiece.PiecePosition.BoardCol + direction[1];
                 Move potentialMove = new Move(i_CurrentPiece.PiecePosition, new Position(targetRow, targetCol));
-                if(LegalMoveValidation(
+                if (LegalMoveValidation(
                        i_CurrentPiece.PiecePosition.BoardRow,
                        i_CurrentPiece.PiecePosition.BoardCol,
                        potentialMove.NextPosition.BoardRow,
@@ -608,12 +609,12 @@ namespace Ex05.GameLogic
             Move currentComputerMove;
             StringBuilder computerStringMove = new StringBuilder();
 
-            if(m_RandomComputerMove == null)
+            if (m_RandomComputerMove == null)
             {
                 m_RandomComputerMove = new Random();
             }
 
-            if(r_SecondPlayer.PossibleCaptureMoves.Count > 0)
+            if (r_SecondPlayer.PossibleCaptureMoves.Count > 0)
             {
                 randomIndexInList = m_RandomComputerMove.Next(r_SecondPlayer.PossibleCaptureMoves.Count);
                 currentComputerMove = r_SecondPlayer.PossibleCaptureMoves[randomIndexInList];
@@ -648,7 +649,7 @@ namespace Ex05.GameLogic
 
         private void switchTurn()
         {
-            if(IsCurrentPlayerIsFirstPlayer())
+            if (IsCurrentPlayerIsFirstPlayer())
             {
                 m_CurrentPlayerTurn = r_SecondPlayer;
             }

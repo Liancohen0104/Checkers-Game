@@ -1,4 +1,4 @@
-﻿namespace Ex05.GameLogic
+﻿namespace GameLogic
 {
     public class Piece
     {
@@ -8,16 +8,16 @@
 
         public Piece(ePlayerType i_PieceOwner, ePlayerSymbol i_PieceSymbol, Position i_PiecePosition)
         {
-            this.r_PieceOwner = i_PieceOwner;
-            this.m_PieceSymbol = i_PieceSymbol;
-            this.m_PiecePosition = i_PiecePosition;
+            r_PieceOwner = i_PieceOwner;
+            m_PieceSymbol = i_PieceSymbol;
+            m_PiecePosition = i_PiecePosition;
         }
 
         public ePlayerType PieceOwner
         {
             get
             {
-                return this.r_PieceOwner;
+                return r_PieceOwner;
             }
         }
 
@@ -25,11 +25,11 @@
         {
             get
             {
-                return this.m_PieceSymbol;
+                return m_PieceSymbol;
             }
             set
             {
-                this.m_PieceSymbol = value;
+                m_PieceSymbol = value;
             }
         }
 
@@ -37,11 +37,11 @@
         {
             get
             {
-                return this.m_PiecePosition;
+                return m_PiecePosition;
             }
             set
             {
-                this.m_PiecePosition = value;
+                m_PiecePosition = value;
             }
         }
     }
